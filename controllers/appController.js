@@ -45,7 +45,7 @@ module.exports.getNoPopulate = async (Model, id, fields = {}) => {
 };
 
 module.exports.getUniqueOne = async (Model, fields = {}, condition) => {
-  let data = await Model.findOne(condition);
+  let data = await Model.findOne(condition, fields);
   return data ? data : false;
 };
 module.exports.updateUniqueOne = async (Model, updateBody) => {

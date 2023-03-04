@@ -18,6 +18,7 @@ const UserSchema = new Schema(
     username: {
       type: String,
       required: true,
+      unique: true,
       validate: {
         validator: function (v) {
           return v.length > 2;

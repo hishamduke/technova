@@ -5,8 +5,24 @@ require("dotenv").config();
 const appController = require("../controllers/appController");
 const { MESSAGES } = require("../helper/constants");
 
+const deleteKeys = [
+  "_id",
+  "__v",
+  "updatedAt",
+  "createdAt",
+  "password",
+  "isAdmin",
+];
+
 module.exports.login = async (req, res, next) => {
-  let fields = { country: 0 };
+  let fields = {
+    roundOne: 0,
+    roundTwo: 0,
+    roundThree: 0,
+    roundFour: 0,
+    roundFive: 0,
+    isAdmin: 0,
+  };
   const { username, password } = req.body;
   const user = await appController.getUniqueOne(User, fields, { username });
 
@@ -49,9 +65,18 @@ module.exports.login = async (req, res, next) => {
 
 module.exports.register = async (req, res, next) => {
   try {
-    const userExist = await User.find({ username: req.body?.username });
+    const username = req.body?.username?.trim();
+    console.log(username);
+    if (!onValidUsername(req.body.username)) {
+      return res.jsonError(MESSAGES.CREATE_FAIL, 404, {
+        message: "Invalid Username",
+      });
+    }
+
+    const userExist = await User.find({ username });
     console.log(userExist);
     console.log(!!userExist.length);
+
     if (!!userExist.length) {
       return res.jsonError(MESSAGES.CREATE_FAIL, 404, {
         message: "User already exists",
@@ -64,10 +89,10 @@ module.exports.register = async (req, res, next) => {
     if (valid["ok"]) {
       console.log("VALID ");
       const user = await bodyObj.save();
-      return res.jsonSuccess(MESSAGES.CREATE, 200, { data: user });
+      return res.jsonSuccess(MESSAGES.CREATE, 200, user);
     } else {
       console.log(valid);
-      return res.jsonError(MESSAGES.CREATE_FAIL, 404, { valid });
+      return res.jsonError(MESSAGES.CREATE_FAIL, 404, valid);
     }
   } catch (e) {
     return res.jsonError(MESSAGES.ANY, 404);
@@ -75,3 +100,7 @@ module.exports.register = async (req, res, next) => {
 };
 
 // module.exports.refreshToken = async (req, res, next) => {};
+function onValidUsername(val) {
+  const usernameRegex = /^[a-zA-Z0-9]+$/;
+  return usernameRegex.test(val);
+}
