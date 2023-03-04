@@ -38,3 +38,15 @@ module.exports.getAll = async (req, res, next) => {
     return res.jsonError("ERROR OCCURED", 400);
   }
 };
+
+module.exports.selectUser = async (req, res, next) => {
+  const id = req.params.id;
+  const users = await User.findByIdAndUpdate(
+    id,
+    { selected: true },
+    { new: true }
+  );
+  return res.jsonSuccess("MESSAGES.FETCH", 200, users);
+
+  // return res.jsonError("ERROR OCCURED", 400);
+};

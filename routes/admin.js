@@ -15,6 +15,7 @@ function OnlyAdmins(req, res, next) {
 
 router.route("/getallusers").get(OnlyAdmins, adminController.getAll);
 
+router.route("/select/:id([0-9a-f]{24})").get(adminController.selectUser);
 // router.route("/login").post(authController.login);
 
 module.exports = router;
