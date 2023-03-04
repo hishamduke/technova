@@ -42,74 +42,33 @@ const UserSchema = new Schema(
       },
       message: "Password should have minimum 6 length",
     },
-    roundOne: {
+    selected: {
+      type: Boolean,
+      default: false,
+    },
+    round1: {
       task1: {
-        mark: {
-          type: Number,
-          default: 0,
-          validate: {
-            validator: function (v) {
-              return v >= 0 && v <= 25;
-            },
-            message: (props) => `${props.value} is not a valid mark`,
-          },
-        },
+        answer: String,
         time: String,
       },
       task2: {
-        mark: {
-          type: Number,
-          default: 0,
-          validate: {
-            validator: function (v) {
-              return v >= 0 && v <= 45;
-            },
-            message: (props) => `${props.value} is not a valid mark`,
-          },
-        },
+        answer: String,
         time: String,
       },
       task3: {
-        mark: {
-          type: Number,
-          default: 0,
-          validate: {
-            validator: function (v) {
-              return v >= 0 && v <= 15;
-            },
-            message: (props) => `${props.value} is not a valid mark`,
-          },
-        },
+        answer: String,
         time: String,
       },
       task4: {
-        mark: {
-          type: Number,
-          default: 0,
-          validate: {
-            validator: function (v) {
-              return v >= 0 && v <= 9;
-            },
-            message: (props) => `${props.value} is not a valid mark`,
-          },
-        },
+        answer: String,
         time: String,
       },
       task5: {
-        mark: {
-          type: Number,
-          default: 0,
-          validate: {
-            validator: function (v) {
-              return v >= 0 && v <= 6;
-            },
-            message: (props) => `${props.value} is not a valid mark`,
-          },
-        },
+        answer: String,
         time: String,
       },
     },
-    roundTwo: {
+    round2: {
       task1: {
         answer: String,
         time: String,
@@ -123,6 +82,36 @@ const UserSchema = new Schema(
         time: String,
       },
       task4: {
+        answer: String,
+        time: String,
+      },
+    },
+    round3: {
+      task1: {
+        answer: String,
+        time: String,
+      },
+      task2: {
+        answer: String,
+        time: String,
+      },
+      task3: {
+        answer: String,
+        time: String,
+      },
+    },
+    round4: {
+      task1: {
+        answer: String,
+        time: String,
+      },
+      task2: {
+        answer: String,
+        time: String,
+      },
+    },
+    round5: {
+      task1: {
         answer: String,
         time: String,
       },

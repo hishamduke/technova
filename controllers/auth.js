@@ -21,7 +21,7 @@ module.exports.login = async (req, res, next) => {
     roundThree: 0,
     roundFour: 0,
     roundFive: 0,
-    isAdmin: 0,
+    // isAdmin: 0,
   };
   const { username, password } = req.body;
   const user = await appController.getUniqueOne(User, fields, { username });
@@ -31,6 +31,7 @@ module.exports.login = async (req, res, next) => {
       email: "Incorrect username",
     });
   }
+  console.log(user);
   user.comparePassword(password, (err, isMatch) => {
     if (err) return res.ServerError(err);
     else if (!isMatch) {

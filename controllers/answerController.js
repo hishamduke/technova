@@ -73,6 +73,49 @@ module.exports.RoundOne = async function RoundOne(req, res, next) {
   return res.jsonSuccess("MESSAGES.FETCH", 200, "HM");
 };
 
+module.exports.Submit = async function Submit(req, res, next) {
+  try {
+    const round = req.body.round;
+
+    const task = req.body.task;
+    const name = `round${round}tasks`;
+    const answer = req.body.answer;
+    const validTasks = [5, 4, 3, 2, 1];
+    const isValidTask = task <= validTasks[round - 1] && task > 0;
+    console.log("isValidTask " + name);
+
+    console.log(isValidTask);
+
+    if (!isValidTask || [1, 2, 3, 4, 5].indexOf(round) < 0)
+      return res.jsonError("MESSAGES.FETCH", 400, {
+        message: "INVALID ROUND OR TASK",
+      });
+
+    const updField = `round${round}.task${task}`;
+    const timeInIndia = GetTime();
+
+    console.log(updField);
+    const updateUser = await User.findByIdAndUpdate(
+      req.user.id,
+      {
+        $set: {
+          [updField]: {
+            answer: JSON.stringify(answer),
+            time: timeInIndia,
+          },
+        },
+      },
+      { new: true }
+    );
+    return res.jsonSuccess("MESSAGES.FETCH", 200, "ANSWER SUBMITTED");
+  } catch (error) {
+    console.log(error);
+    return res.jsonError("server error", 400, {
+      error: `Internal server error`,
+    });
+  }
+};
+
 module.exports.RoundTwo = async function RoundOne(req, res, next) {
   try {
     const roundTwoTasks = [1, 2, 3, 4];
