@@ -14,7 +14,7 @@ require("dotenv").config();
 Setup.initialize();
 app.disable("x-powered-by");
 app.set("port", process.env.PORT);
-app.use(cors({ origin: "http://localhost:3001", credentials: true }));
+app.use(cors({ origin: "http://localhost:3001", credentials: true },{ origin: "http://localhost:3000", credentials: true }));
 
 app.use(passport.initialize());
 require("./passport")(passport);
@@ -26,13 +26,13 @@ app.use(cookieParser());
 
 app.use("/api", routers);
 
-app.use(express.static(path.join(__dirname, "ui/build")));
+// app.use(express.static(path.join(__dirname, "ui/build")));
 
 // root route
 
-app.get("*", function (req, res) {
-  res.sendFile(path.join(__dirname, "ui/build", "index.html"));
-});
+// app.get("*", function (req, res) {
+//   res.sendFile(path.join(__dirname, "ui/build", "index.html"));
+// });
 
 // error handler
 app.use((err, req, res, next) => {
