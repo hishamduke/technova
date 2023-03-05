@@ -14,6 +14,10 @@ require("dotenv").config();
 Setup.initialize();
 app.disable("x-powered-by");
 app.set("port", process.env.PORT);
+app.options("*", function (req, res) {
+  res.sendStatus(200);
+});
+
 // app.use(cors({ origin: "https://technovaui.vercel.app", credentials: true }));
 app.use(function (req, res, next) {
   // Website you wish to allow to connect
