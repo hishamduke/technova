@@ -43,6 +43,7 @@ module.exports.login = async (req, res, next) => {
         id: user._id,
         username: user.username,
         role: user?.isAdmin ? "ADMIN" : "USER",
+        isSelected: user?.selected,
       };
       jwt.sign(
         payload,
