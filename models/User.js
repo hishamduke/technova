@@ -37,7 +37,7 @@ const UserSchema = new Schema(
       validate: {
         validator: function (v) {
           // return v.length > 8;
-          return v.length > 6;
+          return v.length >= 6;
         },
       },
       message: "Password should have minimum 6 length",
