@@ -23,12 +23,9 @@ module.exports.getAll = async (req, res, next) => {
 
 module.exports.selectUser = async (req, res, next) => {
   const id = req.params.id;
-  const users = await User.findByIdAndUpdate(
-    id,
-    { selected: true },
-    { new: true }
-  );
-  return res.jsonSuccess("MESSAGES.FETCH", 200, users);
+  const selected = req.body.selected;
+  const user = await User.findByIdAndUpdate(id, { selected }, { new: true });
+  return res.jsonSuccess("MESSAGES.FETCH", 200, user);
 
   // return res.jsonError("ERROR OCCURED", 400);
 };
