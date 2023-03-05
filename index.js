@@ -14,12 +14,7 @@ require("dotenv").config();
 Setup.initialize();
 app.disable("x-powered-by");
 app.set("port", process.env.PORT);
-app.use(
-  cors(
-    { origin: "https://technovaui.vercel.app/", credentials: true },
-    { origin: "http://localhost:3000", credentials: true }
-  )
-);
+app.use(cors({ origin: "https://technovaui.vercel.app/", credentials: true }));
 // app.use(cors({ origin: "http://localhost:3001", credentials: true },{ origin: "http://localhost:3000", credentials: true }));
 
 app.use(passport.initialize());
