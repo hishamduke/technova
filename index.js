@@ -17,7 +17,9 @@ app.set("port", process.env.PORT);
 // app.use(cors({ origin: "https://technovaui.vercel.app", credentials: true }));
 app.use(function (req, res, next) {
   // Website you wish to allow to connect
-  res.setHeader("Access-Control-Allow-Origin", "https://technovaui.vercel.app");
+  res.setHeader("Access-Control-Allow-Origin", "https://localhost:3001");
+
+  res.setHeader("Access-Control-Allow-Origin", "https://technova.vercel.app");
 
   // Request methods you wish to allow
   res.setHeader(
