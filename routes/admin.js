@@ -17,6 +17,8 @@ router.route("/getallusers").get(OnlyAdmins, adminController.getAll);
 router.route("/getuser/:id([0-9a-f]{24})").get(OnlyAdmins, adminController.get);
 
 router.route("/select/:id([0-9a-f]{24})").post(adminController.selectUser);
+router.route("/delete/:id([0-9a-f]{24})").get(adminController.deleteuser);
+
 // router.route("/login").post(authController.login);
 
 module.exports = router;

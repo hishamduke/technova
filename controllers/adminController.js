@@ -29,6 +29,14 @@ module.exports.selectUser = async (req, res, next) => {
 
   // return res.jsonError("ERROR OCCURED", 400);
 };
+module.exports.deleteuser = async (req, res, next) => {
+  const id = req.params.id;
+  const selected = req.body.selected;
+  const user = await User.findByIdAndRemove(id);
+  return res.jsonSuccess("MESSAGES.FETCH", 200, user);
+
+  // return res.jsonError("ERROR OCCURED", 400);
+};
 module.exports.get = async (req, res, next) => {
   const id = req.params.id;
   const users = await User.findById(id);
