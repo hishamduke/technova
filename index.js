@@ -15,21 +15,9 @@ Setup.initialize();
 app.disable("x-powered-by");
 app.set("port", process.env.PORT);
 
-app.options("*", function (req, res) {
-  res.sendStatus(200);
-  if (req.method === "OPTIONS") {
-    res.header("Access-Control-Allow-Origin", req.headers.origin);
-  } else {
-    res.header("Access-Control-Allow-Origin", "*");
-  }
-});
+app.options("*", cors());
 
-app.use(
-  cors(
-    { origin: "http://localhost:3001", credentials: true },
-    { origin: "https://technova.vercel.app", credentials: true }
-  )
-);
+app.use(cors({ origin: true, credentials: true }));
 
 app.use(passport.initialize());
 require("./passport")(passport);
