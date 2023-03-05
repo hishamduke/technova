@@ -20,6 +20,9 @@ app.use(function (req, res, next) {
   res.setHeader("Access-Control-Allow-Origin", "https://localhost:3001");
 
   res.setHeader("Access-Control-Allow-Origin", "https://technova.vercel.app");
+  res.setHeader(
+    "Access-Control-Allow-Headers: Origin, Content-Type, X-Auth-Token"
+  );
 
   // Request methods you wish to allow
   res.setHeader(
