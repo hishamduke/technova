@@ -16,38 +16,19 @@ app.disable("x-powered-by");
 app.set("port", process.env.PORT);
 app.options("*", function (req, res) {
   res.sendStatus(200);
+  if (req.method === "OPTIONS") {
+    res.header("Access-Control-Allow-Origin", req.headers.origin);
+  } else {
+    res.header("Access-Control-Allow-Origin", "*");
+  }
 });
 
-// app.use(cors({ origin: "https://technovaui.vercel.app", credentials: true }));
-app.use(function (req, res, next) {
-  // Website you wish to allow to connect
-  res.setHeader("Access-Control-Allow-Origin", "https://localhost:3001");
-
-  res.setHeader("Access-Control-Allow-Origin", "https://technova.vercel.app");
-  res.setHeader(
-    "Access-Control-Allow-Headers: Origin, Content-Type, X-Auth-Token"
-  );
-
-  // Request methods you wish to allow
-  res.setHeader(
-    "Access-Control-Allow-Methods",
-    "GET, POST, OPTIONS, PUT, PATCH, DELETE"
-  );
-
-  // Request headers you wish to allow
-  res.setHeader(
-    "Access-Control-Allow-Headers",
-    "X-Requested-With,content-type"
-  );
-
-  // Set to true if you need the website to include cookies in the requests sent
-  // to the API (e.g. in case you use sessions)
-  res.setHeader("Access-Control-Allow-Credentials", true);
-
-  // Pass to next layer of middleware
-  next();
-});
-// app.use(cors({ origin: "http://localhost:3001", credentials: true },{ origin: "http://localhost:3000", credentials: true }));
+app.use(
+  cors(
+    { origin: "http://localhost:3001", credentials: true },
+    { origin: "http://localhost:3000", credentials: true }
+  )
+);
 
 app.use(passport.initialize());
 require("./passport")(passport);
