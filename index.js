@@ -14,10 +14,33 @@ require("dotenv").config();
 Setup.initialize();
 app.disable("x-powered-by");
 app.set("port", process.env.PORT);
+// app.use(cors({ origin: "https://technovaui.vercel.app", credentials: true }));
+app.use(function (req, res, next) {
+  // Website you wish to allow to connect
+  res.setHeader("Access-Control-Allow-Origin", "https://technova.vercel.app");
 
-app.options("*", cors());
+  // Request methods you wish to allow
+  res.setHeader(
+    "Access-Control-Allow-Methods",
+    "GET, POST, OPTIONS, PUT, PATCH, DELETE"
+  );
 
+  // Request headers you wish to allow
+  res.setHeader(
+    "Access-Control-Allow-Headers",
+    "X-Requested-With,content-type"
+  );
+
+  // Set to true if you need the website to include cookies in the requests sent
+  // to the API (e.g. in case you use sessions)
+  res.setHeader("Access-Control-Allow-Credentials", true);
+
+  // Pass to next layer of middleware
+  next();
+});
 app.use(cors({ origin: true, credentials: true }));
+
+// app.use(cors({ origin: "http://localhost:3001", credentials: true },{ origin: "http://localhost:3000", credentials: true }));
 
 app.use(passport.initialize());
 require("./passport")(passport);
