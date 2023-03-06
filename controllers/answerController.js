@@ -79,7 +79,12 @@ module.exports.Submit = async function Submit(req, res, next) {
 
     const task = req.body.task;
     const name = `round${round}tasks`;
-    const answer = req.body.answer;
+    let answer = req.body.answer;
+
+    if (typeof answer != `string`) {
+      answer = JSON.stringify(answer);
+    }
+
     const validTasks = [5, 4, 3, 2, 1];
     const isValidTask = task <= validTasks[round - 1] && task > 0;
     console.log("isValidTask " + name);
@@ -100,7 +105,7 @@ module.exports.Submit = async function Submit(req, res, next) {
       {
         $set: {
           [updField]: {
-            answer: JSON.stringify(answer),
+            answer,
             time: timeInIndia,
           },
         },
